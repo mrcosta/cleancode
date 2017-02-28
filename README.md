@@ -5,6 +5,7 @@
 3. [Functions](#functions)
 4. [Comments](#comments)
 5. [Formatting](#formatting)
+6. [Objects and Data Structures](#objectsAndDataStructures)
 
 # <a name='introduction'>Clean Code 🤖</a>
 
@@ -151,10 +152,50 @@ StringBuffer transform(StringBuffer in)
 
 Avoid methods with too many parameters. Sometimes is easy to mistaken using `assertEquals(expected, actua)`, so imagine methods with a big number of arguments...
 
+###Argument objects
+
+If you have a method that the parameters could be extract in a new object, don't be afraid to do it. Like
+
+```java
+private void buildRequestParameters(String applicationId, String flowId, String trackId)
+```
+###Verbs and keywords
+
+`write(name)` is very evocative. Always try to link the name of the function with the parameter's name.
+
+```java
+// BAD
+assertEquals(expected, actual);
+// GOOD
+assertExpectedEqualsActual(expected, actual);
+
+// BAD
+private boolean isNotInfantPassenger(Passenger passenger)
+// GOOD
+private boolean isNotInfant(Passenger passenger)
+```
+
+###Have no side effects. A function should do only one thing!
+###Prefer exceptions to returning error codes
+Is easy to just catch an exception than verify a lot of conditions.
+
 
 #<a name='comments'>Comments 🗣</a>
+Explain yourself in code:
+
+```java
+// Check to see if the employee is eligible for full benefits
+if ((employee.flags & HOURLY_FLAG) && employee.age > 65))
+
+if (employee.isEligibleFOrFullBenefits())
+```
  
 #<a name='formatting'>Formatting 🙌</a>
+
+* variables should be declared in the begin of the method or in the begin of a block
+* caller’s method should be above called methods
+* first, group the methods by affinity (do similar things) and then use the order of the calls (if it is what is happening to reorder then)
+* team rules (talk to your team to know the better patterns that fits with you)
 
 ```java
 for(Segment segment : segments) {
@@ -165,4 +206,53 @@ for(Segment segment : segments) {
 // spaces or not after 'for'??? Follow the language rules
 // http://www.oracle.com/technetwork/java/codeconventions-150003.pdf
 ```
+
+#<a name='objectsAndDataStructures'>Objects and Data Structures 🔝</a>
+
+```java
+public class Point {
+    public double x;
+    public double y;
+}
+```
+```java
+public interface Point {
+    double getX();
+    double getY();
+    void setCartesian(double x, double y);
+    double getR();
+    double getTheta();
+    void setPolar(double r, double theta);
+}
+```
+
+In the second one is necessary to set the coordinates together as an atomic operation. For the first one you can manipulate the data independently, this exposes implementation.
+
+We want to express our data in abstract terms.
+
+Objects hide their data behind abstractions and expose functions that operate on that data. Data structure expose their data and have no meaningful functions.
+
+##Data/Object Anti-Symmetry
+
+```java
+public class Square {    public Point topLeft;    public double side;}
+public class Rectangle {    public Point topLeft;    public double height;    public double width;}public class Circle {    public Point center;    public double radius;}public class Geometry {    public final double PI = 3.141592653589793;    public double area(Object shape) throws NoSuchShapeException {        if (shape instanceof Square) {            Square s = (Square)shape;            return s.side * s.side;        } else if (shape instanceof Rectangle) {            Rectangle r = (Rectangle)shape;            return r.height * r.width;        } else if (shape instanceof Circle) {            Circle c = (Circle)shape;            return PI * c.radius * c.radius;        }        throw new NoSuchShapeException();    }
+}     
+```
+
+If I add a new method, *perimeter()*, in *Geometry*, all the classes would be unnafected. But if I add a new shape, all the methods in *Geometry* would be necessary to changed.
+
+```java
+public class Square implements Shape {    private Point topLeft;    private double side;    public double area() {        return side*side;    }}public class Rectangle implements Shape {    private Point topLeft;    private double height;    private double width;    public double area() {        return height * width;    }}
+```
+
+If I do this, when a new method is add in *Shape*, all the other classes also need to be changed.
+
+>Procedural code (code using data structure) makes it easy to add new functions without changing the existing data structure. OO code, on the other hand, makes it easy to add new classes without changing existing functions.
+
+The complement is also true:
+
+>Procedural code makes it hard to add new data structures because all the functions must change. OO code makes it hard to add new functions because all the classes must change.
+
+
 
