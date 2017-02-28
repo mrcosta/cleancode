@@ -306,7 +306,24 @@ Objects expose behavior and hide data. This makes it easy to add new kinds of ob
 
 Data structures expose data and have no significant behavior. This makes easy to add new behavior to existing data structures but makes it hard to add new data structures to existing functions.
 
-#<a name='errorHandling'> Error Handling</a>
+#<a name='errorHandling'> Error Handling ❌</a>
+
+###Use Exceptions rather than return codes
+
+###Create specific exceptions
+
+###Don't return null
+
+When we do this, we are essentially creating work for ourselves and foisting problems upon our callers. All it takes is one missing *null* check to send an application spinning out of control.
+
+What to do?
+
+* Throw an exception
+* return a Special Case object
+
+Always return an empty list instead of null.
+
+#<a name='boundaries'> Boundaries </a>
 
 
 
