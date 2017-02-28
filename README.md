@@ -6,6 +6,7 @@
 4. [Comments](#comments)
 5. [Formatting](#formatting)
 6. [Objects and Data Structures](#objectsAndDataStructures)
+7. [Error Handling](#errorHandling)
 
 # <a name='introduction'>Clean Code 🤖</a>
 
@@ -253,6 +254,61 @@ If I do this, when a new method is add in *Shape*, all the other classes also ne
 The complement is also true:
 
 >Procedural code makes it hard to add new data structures because all the functions must change. OO code makes it hard to add new functions because all the classes must change.
+
+## Law of Demeter 👴🏿
+
+Objects should hide their data and expose operations. The Law of demeter says that **a method f, inside a class C should only call the methods of these**:
+
+* C
+* An object created inside the method f
+* An object passed as an argument to f
+* An object held in a instance variable of C
+
+*Talk to friends, not to strangers.*
+
+```java
+// BAD
+final String outputDir = ctxt.getOptions().getScratchDir().getAbsolutePath();
+```
+
+###Train Wrecks
+
+```java
+// GOOD
+Options opts = ctxt.getOptions();
+File scratchDir = opts.getScratchDir();
+final String outputDir = scratchDir.getAbsolutePath();
+```
+
+If Options and File are objects, then is obviously they are violating the Law of Demeter. If they are just data structure, then this doesn't apply.
+
+###DON'T DO HYBRID STRUCTURE BETWEEN OBJECTS AND DATA STRUCTURES! 🚨
+
+###Hiding Structure
+
+Why did we want the absolute path of the scratch directory?? What were we going to do with it? **Probably to create a scratch file.**
+
+So we should be telling **ctxt** to do something. We should not be asking it about its internals.
+
+```java
+BufferedOutputStream bos = ctxt.createScratchFileStream(classFileName);
+```
+
+This alows **ctxt** to hide its internals and prevents the current function from having to violate the Law of Demeter by navigating throught objects it shouldn't know about.
+
+###Data Transfer Objects (DTO)
+
+Class with public variables (or getters) and no functions. Is the first stage of translation stage that convert raw data into objects (responses from databases, apis, soaps).
+
+###Conclusion
+
+Objects expose behavior and hide data. This makes it easy to add new kinds of objects without changing existing behaviors. It also makes hard to add new behaviors to existing objects.
+
+Data structures expose data and have no significant behavior. This makes easy to add new behavior to existing data structures but makes it hard to add new data structures to existing functions.
+
+#<a name='errorHandling'> Error Handling</a>
+
+
 
 
 
