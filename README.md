@@ -8,6 +8,7 @@
 6. [Objects and Data Structures](#objectsAndDataStructures)
 7. [Error Handling](#errorHandling)
 8. [Unit Tests](#unitTests)
+9. [Classes](#classes)
 
 # <a name='introduction'>Clean Code 🤖</a>
 
@@ -329,6 +330,35 @@ Always return an empty list instead of null.
 Nothing to add
 
 #<a name='unitTests'> Unit Tests 〒</a>
+
+The Three Laws of TDD
+
+* You may not write production code until you have a failing test
+* You may not write more of a unit test than is sufficient to fail, and not compiling is failing
+* You may not write more production code than is sufficient to pass the currently failing test
+
+>Test code is just as important as production code
+
+Tests enable change!
+
+If your tests are dirty, then your ability to change your code is hampered, and you begin to lose the ability to improve the structure of that code. The dirtier your tests, the dirtier your code becomes.
+
+READABILITY, READABILITY AND READABILITY!
+
+Create a test API. Something that makes easier to read your tests. Builders and custom asserts are very specific for this.
+
+Assert one concept per test
+
+###FIRST
+
+* **F**ast: Tests should be fast.
+* **I**ndependent: Tests should not depend on each other. One test should not set up the conditions for the next other. And them should run in any order you prefer.
+* **R**epeatable: They should run in any environment whithout failing
+* **S**elf-Validating: they should have an boolean output. To make sure that a test was succesful should be not necessary to look a log file or compare two files.
+* **T**imely: tests should be write just before production code. Will be hard to test after that you are in production.
+
+#<a name='classes'>Classes 👯</a>
+
 
 
 
