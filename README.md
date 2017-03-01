@@ -7,6 +7,7 @@
 5. [Formatting](#formatting)
 6. [Objects and Data Structures](#objectsAndDataStructures)
 7. [Error Handling](#errorHandling)
+8. [Unit Tests](#unitTests)
 
 # <a name='introduction'>Clean Code 🤖</a>
 
@@ -323,7 +324,15 @@ What to do?
 
 Always return an empty list instead of null.
 
-#<a name='boundaries'> Boundaries </a>
+#<a name='boundaries'> Boundaries 🚷</a>
+
+Nothing to add
+
+#<a name='unitTests'> Unit Tests 〒</a>
+
+
+
+
 
 
 
