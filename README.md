@@ -9,6 +9,7 @@
 7. [Error Handling](#errorHandling)
 8. [Unit Tests](#unitTests)
 9. [Classes](#classes)
+10. [Systems](#systems)
 
 # <a name='introduction'>Clean Code 🤖</a>
 
@@ -358,6 +359,66 @@ Assert one concept per test
 * **T**imely: tests should be write just before production code. Will be hard to test after that you are in production.
 
 #<a name='classes'>Classes 👯</a>
+
+* We count responsibilities to check if a class is too big
+* The name of a class should describe what responsibilities if fulfills
+* If we cannot derive a concise name for a class, then it's likely too large
+* The more ambiguous the class name, the more likely it has too many responsibilities
+* *Processor, Manager or Super* often hint at unfortunate aggregation of responsibilities
+
+We should also be able to write a brief description of the class in about 25 words without using the words *if*, *and*, *or* or *but*.
+
+**Classes should have one responsibility. One reason to change.**
+
+Maintaning a separation of concerns is just as important in our programming activities as it is in our programs.
+
+Many developers fear that a large number of small, single-purpose classes make it more difficult to understand the bigger picture. They are concerned that they must navigate from class to class in order to figure out how a larger piece of work gets accomplished.
+
+However, a system with many small classes has no more moving parts than a system with a few large classes. There is just as much to learn in the system with a few large classes. So the question is: *Do you want your tools organized into toolboxes with many small drawers each containing well-defined and well-labeled components? Or do you want a few drawers that you just toss everything into?*
+
+##Cohesion
+
+* Classes should have a small number of instance variables
+* In general, the more instance variables a method manipulates the more cohesive that method is to its class. 
+* A class in which each variable is used by each method is maximally cohesive
+* We would like to cohesion to be high
+* When cohesion is high, it means that the methods and variables of the class are co-dependent and hang together as a logical whole
+
+Example of a cohesive class:
+
+```java
+public class Stack {    private int topOfStack = 0;    List<Integer> elements = new LinkedList<Integer>();    
+    public int size() {        return topOfStack;    }    
+    public void push(int element) {        topOfStack++;        elements.add(element);    }    
+    public int pop() throws PoppedWhenEmpty {        if (topOfStack == 0)            throw new PoppedWhenEmpty();        int element = elements.get(--topOfStack);        elements.remove(topOfStack);        return element;    }}
+```
+
+When some instance variables are been used just for some methods in the class, that means that there is another class trying to get out of the larger class.
+
+You should try to separate the variables and methods into more classes such the new classes are more cohesive.
+
+##Organizing for Change
+
+Change is continual.
+
+```java
+public class Sql {    public Sql(String table, Column[] columns)    public String create()    public String insert(Object[] fields)    public String selectAll()    public String findByKey(String keyColumn, String keyValue)    public String select(Column column, String pattern)    public String select(Criteria criteria)    public String preparedInsert()    private String columnList(Column[] columns)    private String valuesList(Object[] fields, final Column[] columns)    private String selectWithCriteria(String criteria)    private String placeholderList(Column[] columns)}
+```
+The Sql class must change when we add a new type of statement. It also must change when we alter the details of a single statement type—for example, if we need to modify the select functionality to support subselects. These two reasons to change mean that theSql class violates the SRP.
+
+We can spot this SRP violation from a simple organizational standpoint.
+
+Private methods that are used only to a few public methods is a sympthom that this public method could be extracted to a new class.
+
+Should be better this way:
+
+```java
+abstract public class Sql {    public Sql(String table, Column[] columns)    abstract public String generate();}public class CreateSql extends Sql {    public CreateSql(String table, Column[] columns)    @Override public String generate()}public class SelectSql extends Sql {    public SelectSql(String table, Column[] columns)    @Override public String generate()}public class InsertSql extends Sql {    public InsertSql(String table, Column[] columns, Object[] fields)    @Override public String generate()    private String valuesList(Object[] fields, final Column[] columns)}
+```
+
+**Open Closed Principle**: Classes should be open for extension but closed for modification. The last example is open to allow new functionality via subclassing, but we can make this change while keeping every other class closed. In a ideal system, we incorporate new features by extending the system, not by making modifications to existing code.
+
+#<a name='systems'>Systems 💻</a>
 
 
 
