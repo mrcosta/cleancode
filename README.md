@@ -47,9 +47,8 @@ private boolean shouldSearchByTicketNumbers(List<String> ticketNumbers) {
 ```java 
 for(Segment segment1 : pnr.getSegments())
 ```
- 
- ___
-Don't use noisy words. What is the difference between and __ProductInfo__ and __ProductData__? You have made the names different without making them mean anything different.
+
+Don't use noisy words. What is the difference between and **ProductInfo** and **ProductData**? You have made the names different without making them mean anything different.
 
 How is _NameString_ better than name? Would a _name_ ever be a floating point number? If so, it breaks an earlier rule about disinformation.
 
@@ -59,8 +58,9 @@ How is _NameString_ better than name? Would a _name_ ever be a floating point nu
  getEditCode();
  // bad: should be editCodes
 ```
-***
-###Class Names
+
+### Class Names
+
 Classes and objects should have nour or noun phrase names like _Customer_, _WikiPage_, _Account_ or _AdressParser_. Avoid words like _Manager_, _Processor_ or _Data_.
 
 ```java
@@ -68,7 +68,7 @@ ValidatorOfParameters // bad
 ParametersValidator // good
 ```
 
-###Method Names
+### Method Names
 Methods should have verb or verb phrase names like _postPayment_, _deletePage_, or _save_. 
 
 Accessors, mutators and predicates should be named for their value and prefixed with _get_, _set_ and _is_.
@@ -96,15 +96,15 @@ What is the difference between *fetch*, *retrieve* and *get*? What is the differ
 
 If I need to differentiate between *MacAdress*, *PortAdress* and *WebAdress* I might consider using MAC and URI for names.
 
-#<a name='functions'>Functions ⚒</a>
+# <a name='functions'>Functions ⚒</a>
 
 Functions should be **small** and then, they should be **smaller** than that.
 
->*Every function in this program was just two, or three, or four lines long. Each was transparently obvious. Each told a story. And each led you to the next in a compelling order.*
+ > _Every function in this program was just two, or three, or four lines long. Each was transparently obvious. Each told a story. And each led you to the next in a compelling order._ 
 
 That's how short your functions should be!
 
-###Blocks and Identing
+### Blocks and Identing
 
 A long condition or the block of code that it's been executed inside a *for* block should be a function call. You keep the function small and also documents and facilitate the reading making a descriptive name.
 
@@ -116,11 +116,11 @@ if (!new File(files.getPath() + File.separator + GET_RESERVATION_PATH_PREFIX + i
 // GOOD
 if (recordLocatorFileExists(recordLocator)) {}
 ```
-###Do one thing
+### Do one thing
 
 And this thing should be in the same level of abstraction. One way to know if a function is doing more than one thing, is if you can extract another function from it with a name that is not merely a restatement of its implementations.
 
-###Common monadic forms
+### Common monadic forms
 
 They are the forms to call a method. 
 
@@ -152,18 +152,18 @@ void transform(StringBuffer out)
 StringBuffer transform(StringBuffer in)
 ```
 
-###Number of arguments
+### Number of arguments
 
 Avoid methods with too many parameters. Sometimes is easy to mistaken using `assertEquals(expected, actua)`, so imagine methods with a big number of arguments...
 
-###Argument objects
+### Argument objects
 
 If you have a method that the parameters could be extract in a new object, don't be afraid to do it. Like
 
 ```java
 private void buildRequestParameters(String applicationId, String flowId, String trackId)
 ```
-###Verbs and keywords
+### Verbs and keywords
 
 `write(name)` is very evocative. Always try to link the name of the function with the parameter's name.
 
@@ -179,12 +179,12 @@ private boolean isNotInfantPassenger(Passenger passenger)
 private boolean isNotInfant(Passenger passenger)
 ```
 
-###Have no side effects. A function should do only one thing!
-###Prefer exceptions to returning error codes
+### Have no side effects. A function should do only one thing!
+### Prefer exceptions to returning error codes
 Is easy to just catch an exception than verify a lot of conditions.
 
 
-#<a name='comments'>Comments 🗣</a>
+# <a name='comments'>Comments 🗣</a>
 Explain yourself in code:
 
 ```java
@@ -194,7 +194,7 @@ if ((employee.flags & HOURLY_FLAG) && employee.age > 65))
 if (employee.isEligibleFOrFullBenefits())
 ```
  
-#<a name='formatting'>Formatting 🙌</a>
+# <a name='formatting'>Formatting 🙌</a>
 
 * variables should be declared in the begin of the method or in the begin of a block
 * caller’s method should be above called methods
@@ -211,7 +211,7 @@ for(Segment segment : segments) {
 // http://www.oracle.com/technetwork/java/codeconventions-150003.pdf
 ```
 
-#<a name='objectsAndDataStructures'>Objects and Data Structures 🔝</a>
+# <a name='objectsAndDataStructures'>Objects and Data Structures 🔝</a>
 
 ```java
 public class Point {
@@ -236,7 +236,7 @@ We want to express our data in abstract terms.
 
 Objects hide their data behind abstractions and expose functions that operate on that data. Data structure expose their data and have no meaningful functions.
 
-##Data/Object Anti-Symmetry
+## Data/Object Anti-Symmetry
 
 ```java
 public class Square {    public Point topLeft;    public double side;}
@@ -274,7 +274,7 @@ Objects should hide their data and expose operations. The Law of demeter says th
 final String outputDir = ctxt.getOptions().getScratchDir().getAbsolutePath();
 ```
 
-###Train Wrecks
+### Train Wrecks
 
 ```java
 // GOOD
@@ -285,9 +285,9 @@ final String outputDir = scratchDir.getAbsolutePath();
 
 If Options and File are objects, then is obviously they are violating the Law of Demeter. If they are just data structure, then this doesn't apply.
 
-###DON'T DO HYBRID STRUCTURE BETWEEN OBJECTS AND DATA STRUCTURES! 🚨
+### DON'T DO HYBRID STRUCTURE BETWEEN OBJECTS AND DATA STRUCTURES! 🚨
 
-###Hiding Structure
+### Hiding Structure
 
 Why did we want the absolute path of the scratch directory?? What were we going to do with it? **Probably to create a scratch file.**
 
@@ -299,23 +299,23 @@ BufferedOutputStream bos = ctxt.createScratchFileStream(classFileName);
 
 This alows **ctxt** to hide its internals and prevents the current function from having to violate the Law of Demeter by navigating throught objects it shouldn't know about.
 
-###Data Transfer Objects (DTO)
+### Data Transfer Objects (DTO)
 
 Class with public variables (or getters) and no functions. Is the first stage of translation stage that convert raw data into objects (responses from databases, apis, soaps).
 
-###Conclusion
+### Conclusion
 
 Objects expose behavior and hide data. This makes it easy to add new kinds of objects without changing existing behaviors. It also makes hard to add new behaviors to existing objects.
 
 Data structures expose data and have no significant behavior. This makes easy to add new behavior to existing data structures but makes it hard to add new data structures to existing functions.
 
-#<a name='errorHandling'> Error Handling ❌</a>
+# <a name='errorHandling'> Error Handling ❌</a>
 
-###Use Exceptions rather than return codes
+### Use Exceptions rather than return codes
 
-###Create specific exceptions
+### Create specific exceptions
 
-###Don't return null
+### Don't return null
 
 When we do this, we are essentially creating work for ourselves and foisting problems upon our callers. All it takes is one missing *null* check to send an application spinning out of control.
 
@@ -326,11 +326,11 @@ What to do?
 
 Always return an empty list instead of null.
 
-#<a name='boundaries'> Boundaries 🚷</a>
+# <a name='boundaries'> Boundaries 🚷</a>
 
 Nothing to add
 
-#<a name='unitTests'> Unit Tests 〒</a>
+# <a name='unitTests'> Unit Tests 〒</a>
 
 The Three Laws of TDD
 
@@ -350,7 +350,7 @@ Create a test API. Something that makes easier to read your tests. Builders and 
 
 Assert one concept per test
 
-###FIRST
+### FIRST
 
 * **F**ast: Tests should be fast.
 * **I**ndependent: Tests should not depend on each other. One test should not set up the conditions for the next other. And them should run in any order you prefer.
@@ -358,7 +358,7 @@ Assert one concept per test
 * **S**elf-Validating: they should have an boolean output. To make sure that a test was succesful should be not necessary to look a log file or compare two files.
 * **T**imely: tests should be write just before production code. Will be hard to test after that you are in production.
 
-#<a name='classes'>Classes 👯</a>
+# <a name='classes'>Classes 👯</a>
 
 * We count responsibilities to check if a class is too big
 * The name of a class should describe what responsibilities if fulfills
@@ -376,7 +376,7 @@ Many developers fear that a large number of small, single-purpose classes make i
 
 However, a system with many small classes has no more moving parts than a system with a few large classes. There is just as much to learn in the system with a few large classes. So the question is: *Do you want your tools organized into toolboxes with many small drawers each containing well-defined and well-labeled components? Or do you want a few drawers that you just toss everything into?*
 
-##Cohesion
+## Cohesion
 
 * Classes should have a small number of instance variables
 * In general, the more instance variables a method manipulates the more cohesive that method is to its class. 
@@ -397,7 +397,7 @@ When some instance variables are been used just for some methods in the class, t
 
 You should try to separate the variables and methods into more classes such the new classes are more cohesive.
 
-##Organizing for Change
+## Organizing for Change
 
 Change is continual.
 
@@ -418,7 +418,7 @@ abstract public class Sql {    public Sql(String table, Column[] columns)    a
 
 **Open Closed Principle**: Classes should be open for extension but closed for modification. The last example is open to allow new functionality via subclassing, but we can make this change while keeping every other class closed. In a ideal system, we incorporate new features by extending the system, not by making modifications to existing code.
 
-#<a name='systems'>Systems 💻</a>
+# <a name='systems'>Systems 💻</a>
 
 
 
