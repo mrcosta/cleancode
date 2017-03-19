@@ -10,6 +10,9 @@
 8. [Unit Tests](#unitTests)
 9. [Classes](#classes)
 10. [Systems](#systems)
+11. [Emergence](#emergence)
+12. [Concurrency](#concurrency)
+13. [Successive Refinement](#successiveRefinement)
 
 # <a name='introduction'>Clean Code 🤖</a>
 
@@ -434,8 +437,35 @@ A good DSL minimizes the "communication gap" between a domain concept and the co
 
 ### Use the simplest thing that can possibly work.
 
+# <a name="emergence">Emergence </a> 
 
+Simple design
 
+* Runs all the tests
+* Contains no duplication
+* Expresses the intent of the programmer
+* Minimize the number of classes and methods
 
+## Run all the tests
+
+Systems that aren't testable aren't verifiable. Arguably, a system that cannot be verified should never be deployed.
+The more tests we write, the more we'll continue to push toward things that are simpler to test. The more tests we write, more we use principles like DIP or SRP.
+
+## Refactoring
+
+The fact that we have tests eliminates the fear that cleaning up the code will break it!
+
+## No duplication
+
+Because...reasons
+
+## Expressive
+It's use to write code that we understand, because at the time we write it we're deep in an understanding of the problem we're trying to solve. Other maintainers of the code are'nt going to have so deep an understanding. The clearer we write our code, the less time others will have to spend understanding it.
+
+### Keep your functions and classes small.
+
+All too often we get our code working and then move on to the next problem without giving sufficient thought to making that code easy for the next person to read. Remember, the most likely next person to read the code will be you. Care is a precious resource.
+
+# <a name="successiveRefinement">Successive Refinement</a>
 
 
