@@ -420,9 +420,19 @@ abstract public class Sql {    public Sql(String table, Column[] columns)    a
 
 # <a name='systems'>Systems 💻</a>
 
+Separe the system construction from the objects constructions (Dependency Injection)
 
+> Software systems are unique compared to physical systems. Their architectures can grow incrementaly, if we maintain the proper separation of concerns.
 
+Is best to postpone decisions until the last possible moment. This isn't lazy or irresponsible; it let's us make informed choices with the best possible information. A premature decision is a decision made with suboptimal knowledge. We will have that much less customer feedback, mental reflection on the project, and experience with our implementation choices if we decide to soon.
 
+> Standards make it easier to reuse ideas and components. However, creating standards can sometimes take too long for the industry to wait, and some standards lose touch with the real needs of the adopters they are intended to serve.
+
+### System need Domain-Specific Languages
+
+A good DSL minimizes the "communication gap" between a domain concept and the code that implements and also between the developers team and it's stakeholders.
+
+### Use the simplest thing that can possibly work.
 
 
 
