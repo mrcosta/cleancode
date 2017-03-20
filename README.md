@@ -14,6 +14,7 @@
 12. [Concurrency](#concurrency)
 13. [Successive Refinement](#successiveRefinement)
 14. [JUnit Internals](#junitInternals)
+15. [Smells and Heuristics](#smellsAndHeuristics)
 
 # <a name='introduction'>Clean Code 🤖</a>
 
@@ -475,3 +476,9 @@ Programmers who satisfy themselves with merely working code are behaving unprofe
 Bad schedules can be redone, bad requirements can be redefined. Bad team dynamics can be repaired. But bad code rots and ferments.
 
 # <a name="junitInternals"> JUnit Internals </a>
+
+Often one refactoring leads to another that leads to the undoing of the first. Refactoring is an interative process full of trial and error, inevitably converging on something that we feel is worthy of a professional.
+
+No module is immune from improvement, and each of us has the responsibility to leave the code a litte better than we found it.
+
+# <a name="smellsAndHeuristics"> Smells and Heuristics </a> 
