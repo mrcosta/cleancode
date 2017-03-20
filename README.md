@@ -13,6 +13,7 @@
 11. [Emergence](#emergence)
 12. [Concurrency](#concurrency)
 13. [Successive Refinement](#successiveRefinement)
+14. [JUnit Internals](#junitInternals)
 
 # <a name='introduction'>Clean Code 🤖</a>
 
@@ -468,4 +469,9 @@ All too often we get our code working and then move on to the next problem witho
 
 # <a name="successiveRefinement">Successive Refinement</a>
 
+First write dirty code and then clean it.
 
+Programmers who satisfy themselves with merely working code are behaving unprofessionally. They may fear that they don't have time to improve the structure and design of their code, but I disagree. 
+Bad schedules can be redone, bad requirements can be redefined. Bad team dynamics can be repaired. But bad code rots and ferments.
+
+# <a name="junitInternals"> JUnit Internals </a>
