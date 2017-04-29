@@ -482,3 +482,118 @@ Often one refactoring leads to another that leads to the undoing of the first. R
 No module is immune from improvement, and each of us has the responsibility to leave the code a litte better than we found it.
 
 # <a name="smellsAndHeuristics"> Smells and Heuristics </a> 
+
+F1: *Too Many Arguments*: Functions should have a small number of arguments
+F2: *Output Arguments*: Readers expect arguments to be inputs, not outputs. If a function must change the state of something, have it change the state of the object its called on.
+F3: *Flag Arguments*: Boolean arguments loudly declare that the function does more than one thing.
+
+G3: *Incorrect Behavior at the Boundaries*: Don't rely on your intuition. Look for every boundary condition and write a test for it.
+
+G5: *Duplication*: If you have a lot of if/elses and switchs, these should be replaced with polymorphism.
+
+G6: *Code at wrong level of abstraction*: Isolating abstractions is one of the hardest things that software developers do, and there is no quick fix when you get it wrong.
+Try to separate higher level general concepts from lower level detailed concepts.
+
+G8: *Too much information*: Well-defined modules have very small interfaces that allow you to do a lot with a little. Poorly defined modules have wide and deep interfaces that force you to use many different gestures to get simple things done. A well-defined interface does not offer very many functions to depend upon, so coupling is low. A poorly defined interface provides lots of functions that you must call, so coupling is high.
+* The fewer methods a class has, the better
+* The fewer variables a function knows about, the better. 
+* The fewer instance variables a class has, the better.
+Be SMALL 
+
+G9: *Dead Code*: Is code that is never executed. Can be found in conditions or try catchs that will never occur.
+
+G10: *Vertical Separation*: variables should be declared near where they are used. The same principle apply to private methods (near its public methods).
+
+G11: *Inconsistency*: if you use some pattern (example: for variables names), stick with it.
+
+G13: *Artificial Coupling*: don't force things to be connected withou specific purposes. Example: enum inside a object and another object using this enum knowing about the object that holds the enum.
+
+G14: *Feature Envy*: one object uses more another object than itself. Probably that method would be better if placed in this another object.
+
+G15: *Selector Arguments*: In general its better to have many functions than to pass some code into a function to select the behavior (avoid boolean params).
+
+avoid things like:
+
+```java
+double overtimeRate = overtime ? 1.5 :1.0 * tenthRate;
+```
+
+instead, try to create more functions that will split the behavior. And often is possible to use another type (int, enuns) to apply the same intent as the boolean would (sometimes boolean intents something mathematical)
+
+G17: *Misplaced Responsibility*: could should be when makes sense to be (domain driven design) and the same apply for enums, constants...
+
+G18: *Inapropriate Static*: make sure that there is no chance that you'll want the static method to behave polymorphically.
+
+G19: *Use explanatory variables*: use intermediary variables to expose the intent of the calculation or logic that you are implementing.
+
+G20: *Function names should say what they do*
+
+G21: *Understand the algorithm*: before you consider yourself done with a function, make sure you understand how it works (refactoring is also a good approach to reinforce what it does).
+
+G22: *Make logical dependencies physical*: if you are doing some condition to avoid call another object function, is possible that condition (or what you use) should be placed in the object that you would call (if the condition pass) rather than the current object.
+
+```java
+if (page.size() == PAGE_SIZE) {
+   report.print()
+}
+```
+
+instead, use:
+
+```java
+if (page.size() == report.getMaxPageSize()) {
+   report.print()
+}
+```
+
+G23: *Prefer Polymorphism to if/else or switch/case*
+
+G24: *Follow standard conventions*: talk to your team about the way to indent, to declara variables, to naming functions...
+
+G25: *Replace magic numbers with named constants* 
+
+G26: *Be precise*: do what you need to do given the behavior of the code that you created.
+
+G28: *Encapsulate Conditionals*
+
+G29: *Avoid negative conditionals* 
+
+G30: *Functions should do one thing*
+
+G31: *Hidden Temporal Coupling*: implement in a way that each function produces a result that the next function needs, so there is no reasonable way to call them out of order.
+
+Example:
+
+```java
+gradient = saturateGradient()
+splines = calculateSplines(gradient)
+```
+
+is better than:
+
+```java
+gradient = saturateGradient()
+splines = calculateSplines() // because in this way is not clear what order you can call the methods
+```
+
+G33: *Encapsulate boundary conditions*: to a variable, function...make it clearer
+
+G34: *Functions should descend only one level of abstraction*: separate things better and don't mess code with code that should be in another place.
+
+G36: *Avoind transitive navigation*: we don't want something like 'a.getB().getC().doSomething()' instead, we ant 'myCollaborator.doSomething()'
+
+##JAVA
+
+J2: *Don't hide constants*: always make explicit where they come from
+
+J3: *Use Enums*: they are more powerful than constants alone
+
+##NAMES
+
+N1: *use descriptive names*
+
+N2: *choose names at the Appropriate Level of Abstraction*
+
+N3: *use standard nomenclature where possible* 
+
+N7: *names should describe side-effects* 
